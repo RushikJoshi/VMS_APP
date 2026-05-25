@@ -29,9 +29,14 @@ class CompanyAdminDrawer extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: const LinearGradient(
                 colors: [
-                  Color(0xFFBBCFE4),
-                  Color(0xFFAECFF3),
-                  Color(0xFF8EABCC),
+                  Color(0xFF4E8DE8),
+                 // Color(0xFF1B6BF8),
+                  // Color(0xFF061F5A),
+                  Color(0xFF769DED),
+                  Color(0xFF1E5AE0),
+                  // Color(0xFFBBCFE4),
+                  // Color(0xFFAECFF3),
+                  // Color(0xFF8EABCC),
                 ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
