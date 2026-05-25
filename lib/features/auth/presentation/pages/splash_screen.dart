@@ -36,34 +36,55 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue.shade900,
-      body: Center(
-        child: FadeTransition(
-          opacity: _fadeAnimation,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                  boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.2), blurRadius: 20, spreadRadius: 5)],
-                ),
-                child: Icon(Icons.apartment, size: 80, color: Colors.blue.shade900),
-              ),
-              const SizedBox(height: 32),
-              const Text(
-                'ENTERPRISE ERP',
-                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white, letterSpacing: 2),
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                'Super Admin Gateway',
-                style: TextStyle(fontSize: 16, color: Colors.white70, letterSpacing: 1),
-              ),
-              const SizedBox(height: 48),
-              const CircularProgressIndicator(color: Colors.white),
+
+
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+
+            colors: [
+
+              Color(0xFFBBCFE4),
+              Color(0xFFAECFF3),
+              Color(0xFF8EABCC),
+
             ],
+          ),
+        ),
+        child: Center(
+          child: FadeTransition(
+            opacity: _fadeAnimation,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(24),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                    boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.2), blurRadius: 20, spreadRadius: 5)],
+                  ),
+                  child: Icon(Icons.apartment, size: 80, color: Colors.blue.shade900),
+                ),
+                const SizedBox(height: 32),
+                const Text(
+                  'ENTERPRISE ERP',
+                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white, letterSpacing: 2),
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Super Admin Gateway',
+                  style: TextStyle(fontSize: 16, color: Colors.white70, letterSpacing: 1),
+                ),
+                const SizedBox(height: 48),
+                //const CircularProgressIndicator(color: Colors.white),
+              ],
+            ),
           ),
         ),
       ),
