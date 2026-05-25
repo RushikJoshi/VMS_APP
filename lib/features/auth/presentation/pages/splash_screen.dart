@@ -48,10 +48,15 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
             end: Alignment.bottomRight,
 
             colors: [
-
-              Color(0xFFBBCFE4),
-              Color(0xFFAECFF3),
-              Color(0xFF8EABCC),
+              //
+              // Color(0xFFBBCFE4),
+              // Color(0xFFAECFF3),
+              // Color(0xFF8EABCC),
+              Color(0xFFEAF2FF),
+              Color(0xFFD6E5FF),
+              Color(0xFFBFD4FF),
+              Color(0xFF9FC0FF),
+              Color(0xFF1E5AE0),
 
             ],
           ),
@@ -74,13 +79,42 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                 const SizedBox(height: 32),
                 const Text(
                   'ENTERPRISE ERP',
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white, letterSpacing: 2),
+                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold,   color: Color(0xFF0F3F9E), letterSpacing: 2),
                 ),
                 const SizedBox(height: 8),
-                const Text(
-                  'Super Admin Gateway',
-                  style: TextStyle(fontSize: 16, color: Colors.white70, letterSpacing: 1),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ///line
+                    Container(
+                      height: 2,
+                      width: 45,
+                      color: const Color(0xFF60A5FA),
+                    ),
+                    const SizedBox(width: 12),
+                    const Text(
+                      "Super Admin Gateway",
+                      style: TextStyle(
+                        fontSize: 18,
+                        letterSpacing: 1,
+                        color: Color(0xFF1F2937),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    ///line
+                    Container(
+                      height: 2,
+                      width: 45,
+                      color: const Color(0xFF60A5FA),
+                    ),
+                  ],
                 ),
+
+                // const Text(
+                //   'Super Admin Gateway',
+                //   style: TextStyle(fontSize: 16, color: Colors.white70, letterSpacing: 1),
+                // ),
                 const SizedBox(height: 48),
                 //const CircularProgressIndicator(color: Colors.white),
               ],
