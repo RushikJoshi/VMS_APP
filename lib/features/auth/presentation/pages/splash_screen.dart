@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
     _controller.forward();
 
-    Timer(const Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 10), () {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const OnboardingScreen()));
     });
   }
@@ -52,10 +52,10 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
               // Color(0xFFBBCFE4),
               // Color(0xFFAECFF3),
               // Color(0xFF8EABCC),
-              Color(0xFFEAF2FF),
-              Color(0xFFD6E5FF),
-              Color(0xFFBFD4FF),
-              Color(0xFF9FC0FF),
+              Color(0xFF4E8DE8),
+             Color(0xFF1B6BF8),
+             // Color(0xFF061F5A),
+              Color(0xFF769DED),
               Color(0xFF1E5AE0),
 
             ],
@@ -89,7 +89,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                     Container(
                       height: 2,
                       width: 45,
-                      color: const Color(0xFF60A5FA),
+                      color: const Color(0xFF2563EB),
                     ),
                     const SizedBox(width: 12),
                     const Text(
@@ -106,7 +106,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                     Container(
                       height: 2,
                       width: 45,
-                      color: const Color(0xFF60A5FA),
+                      color: const Color(0xFF2563EB),
                     ),
                   ],
                 ),

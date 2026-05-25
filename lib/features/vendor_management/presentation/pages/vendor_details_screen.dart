@@ -14,17 +14,21 @@ class VendorDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF4F7FC),
-
+///appbar
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(95),
         child: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Color(0xFFBBCFE4),
-                Color(0xFFAECFF3),
-                Color(0xFF8EABCC),
+                Color(0xFF4E8DE8),
+                Color(0xFF1B6BF8),
+                // Color(0xFF061F5A),
+                Color(0xFF769DED),
+                Color(0xFF1E5AE0),
+                // Color(0xFFBBCFE4),
+                // Color(0xFFAECFF3),
+                // Color(0xFF8EABCC),
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -115,7 +119,7 @@ class VendorDetailsScreen extends StatelessWidget {
             _buildVerificationAlert(),
 
             const SizedBox(height: 24),
-
+///vendor analystic==============
             const Text(
               'Vendor Analytics',
               style: TextStyle(
@@ -148,7 +152,7 @@ class VendorDetailsScreen extends StatelessWidget {
       ),
     );
   }
-
+///profile header=====================
   Widget _buildProfileHeader() {
     return Container(
       width: double.infinity,
@@ -156,7 +160,7 @@ class VendorDetailsScreen extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [
-            Colors.white,
+            Colors.white54,
             Color(0xFFF5FAFF),
           ],
           begin: Alignment.topLeft,
@@ -165,7 +169,7 @@ class VendorDetailsScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.06),
+            color: Color(0xFF4E8DE8).withOpacity(0.06),
             blurRadius: 18,
             offset: const Offset(0, 8),
           ),
@@ -179,8 +183,10 @@ class VendorDetailsScreen extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: const LinearGradient(
                 colors: [
-                  Color(0xFFBBCFE4),
-                  Color(0xFF8EABCC),
+                  Color(0xFF769DED),
+                  Color(0xFF1E5AE0),
+                  // Color(0xFFBBCFE4),
+                  // Color(0xFF8EABCC),
                 ],
               ),
               borderRadius: BorderRadius.circular(20),
@@ -222,13 +228,13 @@ class VendorDetailsScreen extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             decoration: BoxDecoration(
-              color: Colors.orange.withOpacity(0.12),
+              color:  Color(0xFF769DED).withOpacity(0.12),
               borderRadius: BorderRadius.circular(30),
             ),
             child: const Text(
               "Pending",
               style: TextStyle(
-                color: Colors.orange,
+                color: Color(0xFF769DED),
                 fontSize: 12,
                 fontWeight: FontWeight.w800,
               ),
@@ -238,12 +244,12 @@ class VendorDetailsScreen extends StatelessWidget {
       ),
     );
   }
-
+///pending verification=========================
   Widget _buildVerificationAlert() {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.orange.withOpacity(0.08),
+        color:  Color(0xFF769DED).withOpacity(0.08),
         borderRadius: BorderRadius.circular(22),
         border: Border.all(
           color: Colors.orange.withOpacity(0.35),
@@ -350,6 +356,7 @@ class VendorDetailsScreen extends StatelessWidget {
     );
   }
 
+  ///vendor analytic---------------------
   Widget _buildAnalyticCard(
       String title,
       String value,
@@ -361,8 +368,10 @@ class VendorDetailsScreen extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [
+            // Color(0xFFB8C9ED),
+            // Color(0xFFE0E7F3),
             Colors.white,
-            Color(0xFFF5FAFF),
+            Color(0xFFE0E7F3),
           ],
         ),
         borderRadius: BorderRadius.circular(22),
@@ -412,7 +421,7 @@ class VendorDetailsScreen extends StatelessWidget {
       ),
     );
   }
-
+///RfqParticipation=================
   Widget _buildRfqParticipation() {
     return ListView.builder(
       shrinkWrap: true,
@@ -422,7 +431,15 @@ class VendorDetailsScreen extends StatelessWidget {
         return Container(
           margin: const EdgeInsets.only(bottom: 12),
           decoration: BoxDecoration(
-            color: Colors.white,
+            gradient: const LinearGradient(
+              colors: [
+                Color(0xFFB8C9ED),
+                Color(0xFFE0E7F3),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            //color: Colors.white,
             borderRadius: BorderRadius.circular(22),
             boxShadow: [
               BoxShadow(
@@ -443,8 +460,8 @@ class VendorDetailsScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
                   colors: [
-                    Color(0xFFBBCFE4),
-                    Color(0xFF8EABCC),
+                    Color(0xFF769DED),
+                    Color(0xFF1E5AE0),
                   ],
                 ),
                 borderRadius: BorderRadius.circular(16),
@@ -477,7 +494,7 @@ class VendorDetailsScreen extends StatelessWidget {
               ),
               child: const Icon(
                 Icons.chevron_right_rounded,
-                color: Color(0xFF64748B),
+                color: Color(0xFF769DED),
               ),
             ),
           ),

@@ -67,9 +67,11 @@ class VendorsListScreen extends StatelessWidget {
                 ],
                 gradient: LinearGradient(
                   colors: [
-                    Color(0xFFBBCFE4),
-                    Color(0xFFAECFF3),
-                    Color(0xFF8EABCC),
+                    Colors.white,
+                    Color(0xFFD2DBF3),
+                    // Color(0xFFBBCFE4),
+                    // Color(0xFFAECFF3),
+                    // Color(0xFF8EABCC),
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -112,8 +114,8 @@ class VendorsListScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       gradient: const LinearGradient(
                         colors: [
-                          Color(0xFFBBCFE4),
-                          Color(0xFF8EABCC),
+                          Color(0xFF769DED),
+                          Color(0xFF1E5AE0),
                         ],
                       ),
                       borderRadius: BorderRadius.circular(16),
@@ -167,8 +169,10 @@ class VendorsListScreen extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Colors.white.withOpacity(0.95),
-              const Color(0xFFEAF3FF),
+              Colors.white,
+              Color(0xFFE0E7F3),
+              // Colors.white.withOpacity(0.95),
+              // const Color(0xFFEAF3FF),
             ],
           ),
           borderRadius: BorderRadius.circular(18),
@@ -240,8 +244,8 @@ class VendorsListScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         gradient: const LinearGradient(
           colors: [
-            Colors.white,
-            Color(0xFFF5FAFF),
+            Color(0xFFB8C9ED),
+            Color(0xFFE0E7F3),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -279,8 +283,8 @@ class VendorsListScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
                       colors: [
-                        Color(0xFFBBCFE4),
-                        Color(0xFF8EABCC),
+                        Color(0xFF769DED),
+                        Color(0xFF1E5AE0),
                       ],
                     ),
                     borderRadius: BorderRadius.circular(18),
@@ -368,15 +372,15 @@ class VendorsListScreen extends StatelessWidget {
                 ),
 
                 Container(
-                  height: 38,
-                  width: 38,
+                  height: 40,
+                  width: 40,
                   decoration: BoxDecoration(
                     color: const Color(0xFFF1F5F9),
                     borderRadius: BorderRadius.circular(14),
                   ),
                   child: const Icon(
                     Icons.chevron_right_rounded,
-                    color: Color(0xFF64748B),
+                    color: Color(0xFF769DED),
                   ),
                 ),
               ],

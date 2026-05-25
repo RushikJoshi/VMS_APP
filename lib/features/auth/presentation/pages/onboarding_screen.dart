@@ -42,25 +42,27 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
         children: [
           Positioned(
-            top: -90,
+            top: -100,
             left: -80,
             child: _CircleShape(
               size: 250,
-              color: const Color(0xFFDCEEFF),
+
+              color: const Color(0xFF769DED),
             ),
           ),
           Positioned(
             bottom: -100,
             right: -80,
             child: _CircleShape(
-              size: 260,
-              color: const Color(0xFFD4E9FF),
+              size: 250,
+              color: const Color(0xFF769DED),
             ),
           ),
 
 
           SafeArea(
             child: Column(
+
               children: [
                 Expanded(
                   child: PageView.builder(
@@ -150,7 +152,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   onPressed: () {
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const LoginScreen()));
                   },
-                  child: const Text('Skip', style: TextStyle(color: Colors.grey, fontSize: 16)),
+                  child: const Text('Skip', style: TextStyle(color: Colors.grey, fontSize: 20)),
                 ),
                 const SizedBox(height: 40),
               ],

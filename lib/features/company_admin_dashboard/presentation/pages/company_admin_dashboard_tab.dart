@@ -2,49 +2,36 @@
 
 class CompanyAdminDashboardTab extends StatelessWidget {
   const CompanyAdminDashboardTab({Key? key}) : super(key: key);
-  static const Color c1 = Color(0xFFBBCFE4);
-  static const Color c2 = Color(0xFFAECFF3);
-  static const Color c3 = Color(0xFF8EABCC);
+  // static const Color c1 = Color(0xFFBBCFE4);
+  // static const Color c2 = Color(0xFFAECFF3);
+  // static const Color c3 = Color(0xFF8EABCC);
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
 
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [
-              Color(0xFFBBCFE4),
-              Color(0xFFAECFF3),
-              Color(0xFF8EABCC),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text('Dashboard Overview', style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Colors.white,)),
-              const SizedBox(height: 16),
-              _buildAnalyticsGrid(),
-              const SizedBox(height: 24),
-              const Text('Quick Actions', style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.white,)),
-              const SizedBox(height: 16),
-              _buildQuickActions(),
-              const SizedBox(height: 24),
-              const Text('Procurement Trends', style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.white,)),
-              const SizedBox(height: 16),
-              _buildGraphPlaceholder('Procurement Trends & Monthly Spending'),
-              const SizedBox(height: 24),
-              const Text('Recent Activities', style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.white,)),
-              const SizedBox(height: 16),
-              _buildRecentActivities(),
-            ],
-          ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Dashboard Overview', style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Colors.black,)),
+            const SizedBox(height: 16),
+            _buildAnalyticsGrid(),
+            const SizedBox(height: 24),
+            const Text('Quick Actions', style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.black,)),
+            const SizedBox(height: 16),
+            _buildQuickActions(),
+            const SizedBox(height: 24),
+            const Text('Procurement Trends', style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.black,)),
+            const SizedBox(height: 16),
+            _buildGraphPlaceholder('Procurement Trends & Monthly Spending'),
+            const SizedBox(height: 24),
+            const Text('Recent Activities', style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.black,)),
+            const SizedBox(height: 16),
+            _buildRecentActivities(),
+          ],
         ),
       ),
     );
@@ -99,25 +86,26 @@ class CompanyAdminDashboardTab extends StatelessWidget {
       ),
     );
   }
-
+///Quick  Actions===============================
   Widget _buildQuickActions() {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
         children: [
-          _buildActionButton(Icons.business, 'Add Vendor', c3),
+          _buildActionButton(Icons.business, 'Add Vendor', Colors.redAccent.shade200),
           const SizedBox(width: 12),
-          _buildActionButton(Icons.add_shopping_cart, 'Create RFQ', c3),
+          _buildActionButton(Icons.add_shopping_cart, 'Create RFQ', Colors.indigo.shade600),
           const SizedBox(width: 12),
-          _buildActionButton(Icons.receipt, 'Generate PO', c3),
+          _buildActionButton(Icons.receipt, 'Generate PO', Colors.orange.shade400),
           const SizedBox(width: 12),
-          _buildActionButton(Icons.payment, 'Approve Invoice', c3),
+          _buildActionButton(Icons.payment, 'Approve Invoice', Colors.blue.shade400),
           const SizedBox(width: 12),
-          _buildActionButton(Icons.analytics, 'View Analytics', c3),
+          _buildActionButton(Icons.analytics, 'View Analytics', Colors.green.shade700),
         ],
       ),
     );
   }
+  ///ActionButton  icon======================
   Widget _buildActionButton(IconData icon, String label, Color color) {
     return ElevatedButton.icon(
       onPressed: () {},
@@ -130,18 +118,18 @@ class CompanyAdminDashboardTab extends StatelessWidget {
       ),
     );
   }
-
+///graph=======================================
   Widget _buildGraphPlaceholder(String title) {
     return Container(
       height: 200,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(.92),
+        color: Color(0xFFD6E3F6).withOpacity(.92),
         borderRadius: BorderRadius.circular(24),
         border: Border.all(color:  Colors.white),
         boxShadow: [
           BoxShadow(
-            color: c3.withOpacity(.25),
+            color: Colors.grey.withOpacity(.25),
             blurRadius: 18,
             offset: const Offset(0, 8),
           ),
@@ -151,19 +139,27 @@ class CompanyAdminDashboardTab extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.bar_chart, size: 64, color: Colors.blue.shade200),
+            Icon(Icons.bar_chart, size: 64, color: Colors.blue.shade700),
             const SizedBox(height: 8),
-            Text(title, style: TextStyle(color: Colors.grey.shade600, fontWeight: FontWeight.w500)),
+            Text(title, style: TextStyle(color: Colors.grey.shade700, fontWeight: FontWeight.w700)),
           ],
         ),
       ),
     );
   }
-
+///RecentActivities===================================
   Widget _buildRecentActivities() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.92),
+        // gradient: const LinearGradient(
+        //   colors: [
+        //     Color(0xFFB8C9ED),
+        //     Color(0xFFE0E7F3),
+        //   ],
+        //   begin: Alignment.topLeft,
+        //   end: Alignment.bottomRight,
+        // ),
+       color: Colors.white.withOpacity(0.92),
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
@@ -177,11 +173,21 @@ class CompanyAdminDashboardTab extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         children: [
+          SizedBox(height: 10,),
           _buildActivityTile('Vendor Registered', 'Tech Solutions Inc. joined the platform.', Icons.person_add, Colors.blue, '10 mins ago'),
+          SizedBox(height: 10,),
+
           _buildActivityTile('RFQ Created', 'RFQ-2023-089 for 50 Laptops published.', Icons.request_quote, Colors.orange, '1 hour ago'),
+          SizedBox(height: 10,),
+
           _buildActivityTile('Shipment Delivered', 'SHP-99042 delivered to Mumbai Hub.', Icons.local_shipping, Colors.teal, '3 hours ago'),
+          SizedBox(height: 10,),
           _buildActivityTile('Invoice Approved', 'INV-5502 approved by Finance.', Icons.receipt, Colors.green, '5 hours ago'),
+          SizedBox(height: 10,),
+
           _buildActivityTile('Payment Released', '₹2,50,000 paid to Office Supplies Ltd.', Icons.payment, Colors.red, '1 day ago'),
+          SizedBox(height: 10,),
+
         ],
       ),
     );
@@ -191,7 +197,7 @@ class CompanyAdminDashboardTab extends StatelessWidget {
     return ListTile(
       leading: CircleAvatar(
         backgroundColor: color.withValues(alpha: 0.1),
-        child: Icon(icon, color: color, size: 20),
+        child: Icon(icon, color: color, size: 30),
       ),
       title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
       subtitle: Text(subtitle, style: const TextStyle(fontSize: 12)),

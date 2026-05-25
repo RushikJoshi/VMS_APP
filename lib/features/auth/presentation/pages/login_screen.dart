@@ -79,9 +79,14 @@ class _LoginScreenState extends State<LoginScreen> {
             decoration: BoxDecoration(
               gradient: const LinearGradient(
                 colors: [
-                  Color(0xFFBBCFE4),
-                  Color(0xFFAECFF3),
-                  Color(0xFF8EABCC),
+                  Color(0xFF4E8DE8),
+                  Color(0xFF1B6BF8),
+                  // Color(0xFF061F5A),
+                  Color(0xFF769DED),
+                  Color(0xFF1E5AE0),
+                  // Color(0xFFBBCFE4),
+                  // Color(0xFFAECFF3),
+                  // Color(0xFF8EABCC),
                 ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -145,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Column(
                           children: [
                             const Text(
-                              'Create you account',
+                              'Create your account',
                               style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.w800,
@@ -170,6 +175,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               controller: _passwordController,
                               obscureText: _obscureText,
                               decoration: _inputDecoration(
+
                                 hintText: 'Enter password',
                                 icon: Icons.lock_outline,
                                 suffixIcon: IconButton(
@@ -193,7 +199,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: const Text(
                                   'Forgot Password?',
                                   style: TextStyle(
-                                    color: Color(0xFF7FA2CC),
+                                    color: Color(0xFF1E5AE0),
                                     fontSize: 12,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -209,7 +215,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: ElevatedButton(
                                 onPressed: _handleLogin,
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF8EABCC),
+                                  backgroundColor: const Color(0xFF1E5AE0),
                                   elevation: 0,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(16),
