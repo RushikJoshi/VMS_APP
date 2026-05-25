@@ -19,12 +19,25 @@ class CompanyAdminDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
+    return
+      Drawer(
+
       child: Column(
         children: [
           Container(
             padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
-            color: Colors.blue.shade900,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [
+                  Color(0xFFBBCFE4),
+                  Color(0xFFAECFF3),
+                  Color(0xFF8EABCC),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
+            //color: Colors.blue.shade900,
             width: double.infinity,
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,6 +108,7 @@ class CompanyAdminDrawer extends StatelessWidget {
             title: const Text('Logout', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
             onTap: () {},
           ),
+
         ],
       ),
     );

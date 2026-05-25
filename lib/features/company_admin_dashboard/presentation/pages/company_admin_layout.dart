@@ -28,28 +28,70 @@ class _CompanyAdminLayoutState extends State<CompanyAdminLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
+
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFFBBCFE4),
+                Color(0xFFAECFF3),
+                Color(0xFF8EABCC),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+
         title: const Row(
           children: [
-            Icon(Icons.apartment, color: Colors.blue),
+
+            Icon(
+              Icons.apartment,
+              color: Colors.white,
+            ),
+
             SizedBox(width: 8),
-            Text('Company ERP', style: TextStyle(fontWeight: FontWeight.bold)),
+
+            Text(
+              'Company ERP',
+
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontSize: 24,
+              ),
+            ),
           ],
         ),
+
         actions: [
+
           IconButton(
-            icon: const Icon(Icons.notifications_outlined),
+            icon: const Icon(
+              Icons.notifications_outlined,
+              color: Colors.white,
+            ),
+
             onPressed: () {},
           ),
+
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
+
             child: CircleAvatar(
-              backgroundColor: Colors.blue,
-              child: Icon(Icons.person, color: Colors.white),
+
+              backgroundColor: Colors.white,
+
+              child: Icon(
+                Icons.person,
+                color: Color(0xFF8EABCC),
+              ),
             ),
           ),
         ],
-      ),
-      drawer: const CompanyAdminDrawer(),
+      ),      drawer: const CompanyAdminDrawer(),
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,

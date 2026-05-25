@@ -2,32 +2,49 @@
 
 class CompanyAdminDashboardTab extends StatelessWidget {
   const CompanyAdminDashboardTab({Key? key}) : super(key: key);
+  static const Color c1 = Color(0xFFBBCFE4);
+  static const Color c2 = Color(0xFFAECFF3);
+  static const Color c3 = Color(0xFF8EABCC);
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade100,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Dashboard Overview', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 16),
-            _buildAnalyticsGrid(),
-            const SizedBox(height: 24),
-            const Text('Quick Actions', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 16),
-            _buildQuickActions(),
-            const SizedBox(height: 24),
-            const Text('Procurement Trends', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 16),
-            _buildGraphPlaceholder('Procurement Trends & Monthly Spending'),
-            const SizedBox(height: 24),
-            const Text('Recent Activities', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 16),
-            _buildRecentActivities(),
-          ],
+
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [
+              Color(0xFFBBCFE4),
+              Color(0xFFAECFF3),
+              Color(0xFF8EABCC),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Dashboard Overview', style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Colors.white,)),
+              const SizedBox(height: 16),
+              _buildAnalyticsGrid(),
+              const SizedBox(height: 24),
+              const Text('Quick Actions', style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.white,)),
+              const SizedBox(height: 16),
+              _buildQuickActions(),
+              const SizedBox(height: 24),
+              const Text('Procurement Trends', style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.white,)),
+              const SizedBox(height: 16),
+              _buildGraphPlaceholder('Procurement Trends & Monthly Spending'),
+              const SizedBox(height: 24),
+              const Text('Recent Activities', style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.white,)),
+              const SizedBox(height: 16),
+              _buildRecentActivities(),
+            ],
+          ),
         ),
       ),
     );
@@ -40,7 +57,7 @@ class CompanyAdminDashboardTab extends StatelessWidget {
       mainAxisSpacing: 12,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      childAspectRatio: 2.2,
+      childAspectRatio: 1.55,
       children: [
         _buildStatCard('Vendors', '42', 'Active Vendors', Icons.business, Colors.indigo),
         _buildStatCard('RFQs', '15', 'Active RFQs', Icons.request_quote, Colors.orange),
@@ -88,20 +105,19 @@ class CompanyAdminDashboardTab extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       child: Row(
         children: [
-          _buildActionButton(Icons.business, 'Add Vendor', Colors.blue),
+          _buildActionButton(Icons.business, 'Add Vendor', c3),
           const SizedBox(width: 12),
-          _buildActionButton(Icons.add_shopping_cart, 'Create RFQ', Colors.orange),
+          _buildActionButton(Icons.add_shopping_cart, 'Create RFQ', c3),
           const SizedBox(width: 12),
-          _buildActionButton(Icons.receipt, 'Generate PO', Colors.green),
+          _buildActionButton(Icons.receipt, 'Generate PO', c3),
           const SizedBox(width: 12),
-          _buildActionButton(Icons.payment, 'Approve Invoice', Colors.red),
+          _buildActionButton(Icons.payment, 'Approve Invoice', c3),
           const SizedBox(width: 12),
-          _buildActionButton(Icons.analytics, 'View Analytics', Colors.indigo),
+          _buildActionButton(Icons.analytics, 'View Analytics', c3),
         ],
       ),
     );
   }
-
   Widget _buildActionButton(IconData icon, String label, Color color) {
     return ElevatedButton.icon(
       onPressed: () {},
@@ -120,9 +136,16 @@ class CompanyAdminDashboardTab extends StatelessWidget {
       height: 200,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.shade300),
+        color: Colors.white.withOpacity(.92),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color:  Colors.white),
+        boxShadow: [
+          BoxShadow(
+            color: c3.withOpacity(.25),
+            blurRadius: 18,
+            offset: const Offset(0, 8),
+          ),
+        ],
       ),
       child: Center(
         child: Column(
@@ -138,9 +161,18 @@ class CompanyAdminDashboardTab extends StatelessWidget {
   }
 
   Widget _buildRecentActivities() {
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.92),
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF8EABCC).withOpacity(0.25),
+            blurRadius: 18,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
       child: ListView(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
@@ -149,7 +181,7 @@ class CompanyAdminDashboardTab extends StatelessWidget {
           _buildActivityTile('RFQ Created', 'RFQ-2023-089 for 50 Laptops published.', Icons.request_quote, Colors.orange, '1 hour ago'),
           _buildActivityTile('Shipment Delivered', 'SHP-99042 delivered to Mumbai Hub.', Icons.local_shipping, Colors.teal, '3 hours ago'),
           _buildActivityTile('Invoice Approved', 'INV-5502 approved by Finance.', Icons.receipt, Colors.green, '5 hours ago'),
-          _buildActivityTile('Payment Released', 'â‚¹2,50,000 paid to Office Supplies Ltd.', Icons.payment, Colors.red, '1 day ago'),
+          _buildActivityTile('Payment Released', '₹2,50,000 paid to Office Supplies Ltd.', Icons.payment, Colors.red, '1 day ago'),
         ],
       ),
     );
