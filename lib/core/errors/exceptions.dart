@@ -1,0 +1,2 @@
+// Exceptions placeholder
+class AppException {}
