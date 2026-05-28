@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/constants/app_colors.dart';
 import 'rfq_details_screen.dart';
 
 class RfqDashboardScreen extends StatelessWidget {
@@ -10,91 +11,51 @@ class RfqDashboardScreen extends StatelessWidget {
   }) : super(key: key);
 
   static const Color darkText = Color(0xFF111827);
+  static const Color lightText = Color(0xFF6B7280);
   static const Color primaryColor = Color(0xFF2563EB);
+  static const Color bgColor = Color(0xFFF6F8FC);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFBBCFE4),
-
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(15),
-        child: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color(0xFFBBCFE4),
-                Color(0xFFAECFF3),
-                Color(0xFF8EABCC),
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-
-          ),
-
-        ),
-      ),
-
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xFFBBCFE4),
-              Color(0xFFAECFF3),
-              Color(0xFF8EABCC),
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
+      backgroundColor: bgColor,
+      body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                ' RFQ Dashboard',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.white,
-                ),
-              ),
+              _topHeader(),
+
+              const SizedBox(height: 18),
+
+              _rfqSummaryCard(),
+
+              const SizedBox(height: 20),
+
+              _rfqStatusTracking(),
+
+
+              // const Text(
+              //   "RFQ Status Tracking",
+              //   style: TextStyle(
+              //     fontSize: 20,
+              //     fontWeight: FontWeight.w900,
+              //     color: darkText,
+              //   ),
+              // ),
 
               const SizedBox(height: 12),
-              Row(
-                children: [
-                  Expanded(
-                    child: _buildSummaryCard(
-                      'Open RFQs',
-                      '24',
-                      Icons.pending_actions_rounded,
-                      Colors.orange,
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: _buildSummaryCard(
-                      'Closed RFQs',
-                      '150',
-                      Icons.check_circle_rounded,
-                      Colors.green,
-                    ),
-                  ),
-                ],
-              ),
 
-              const SizedBox(height: 24),
+              //_statusTracking(),
+
 
               const Text(
-                'Recent RFQs',
+                "Recent RFQs",
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w900,
-                  color: Colors.white,
+                  color: darkText,
                 ),
               ),
 
@@ -107,68 +68,390 @@ class RfqDashboardScreen extends StatelessWidget {
       ),
     );
   }
-
-  Widget _buildSummaryCard(
-      String title,
-      String count,
-      IconData icon,
-      Color color,
-      ) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.88),
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: Colors.white.withOpacity(0.75),
+///top header==========================
+  Widget _topHeader() {
+    return Row(
+      children: [
+        const Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "RFQ Dashboard",
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.w900,
+                  color: darkText,
+                ),
+              ),
+              SizedBox(height: 4),
+              Text(
+                "Create, track and manage vendor quotations",
+                style: TextStyle(
+                  color: lightText,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
         ),
+        _headerIcon(Icons.search_rounded),
+        const SizedBox(width: 10),
+        _headerIcon(Icons.notifications_none_rounded),
+      ],
+    );
+  }
+///header icon================
+  static Widget _headerIcon(IconData icon) {
+    return Container(
+      height: 46,
+      width: 46,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Color(0xFFE5E7EB)),
+      ),
+      child: Icon(icon, color: primaryColor),
+    );
+  }
+///summarycary================
+  Widget _rfqSummaryCard() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(22),
+
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+
+        gradient: const LinearGradient(
+          colors: [
+            Color(0xFF7EA1E8),
+            Color(0xFF7093DE),
+            Color(0xFF89A9EE),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: const Color(0xFF7093DE).withOpacity(0.25),
             blurRadius: 18,
-            offset: const Offset(0, 8),
+            offset: const Offset(0, 10),
           ),
         ],
       ),
-      child: Column(
+
+      child: Stack(
         children: [
-          Container(
-            height: 46,
-            width: 46,
-            decoration: BoxDecoration(
-              color: color.withOpacity(0.12),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Icon(
-              icon,
-              color: color,
-              size: 26,
-            ),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            count,
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.w900,
-              color: color,
+
+          /// RIGHT CIRCLE DESIGN
+          Positioned(
+            right: -35,
+            top: -25,
+            child: Container(
+              height: 120,
+              width: 120,
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.08),
+                shape: BoxShape.circle,
+              ),
             ),
           ),
-          const SizedBox(height: 6),
-          Text(
-            title,
-            style: const TextStyle(
-              color: Color(0xFF6B7280),
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-            ),
+
+          /// CONTENT
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+
+              /// ICON BOX
+              Container(
+                height: 38,
+                width: 38,
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.18),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Icon(
+                  Icons.request_quote_rounded,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ),
+
+              const SizedBox(height: 18),
+
+              const Text(
+                "Request For Quotation",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+
+              const SizedBox(height: 6),
+
+              Text(
+                "Track open RFQs, closed RFQs and vendor bids.",
+                style: TextStyle(
+                  color: Colors.white.withOpacity(0.78),
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                  height: 1.4,
+                ),
+              ),
+
+              const SizedBox(height: 22),
+
+              Row(
+                children: [
+                  _summaryMini("24", "Open"),
+                  _summaryMini("150", "Closed"),
+                  _summaryMini("19", "Bids"),
+                ],
+              ),
+            ],
           ),
         ],
       ),
     );
   }
-///Recent rfqs===================
 
+  /// summary card============
+
+  Widget _summaryMini(String value, String title) {
+    return Expanded(
+      child: Container(
+        margin: const EdgeInsets.only(right: 10),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 14,
+          vertical: 12,
+        ),
+
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.14),
+          borderRadius: BorderRadius.circular(18),
+        ),
+
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+
+            Text(
+              value,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 22,
+                fontWeight: FontWeight.w900,
+              ),
+            ),
+
+            const SizedBox(height: 4),
+
+            Text(
+              title,
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.78),
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+///quickaction=====================
+  Widget _rfqStatusTracking() {
+    final rfqList = [
+      {
+        "id": "RFQ-001",
+        "title": "Laptop Requirement",
+        "status": "Open",
+        "progress": 0.35,
+        "color": Colors.orange,
+        "vendors": "8 Vendors",
+        "date": "Due: 28 May",
+      },
+      {
+        "id": "RFQ-002",
+        "title": "Office Furniture",
+        "status": "Under Review",
+        "progress": 0.70,
+        "color": Colors.blue,
+        "vendors": "5 Vendors",
+        "date": "Due: 30 May",
+      },
+      {
+        "id": "RFQ-003",
+        "title": "IT Services",
+        "status": "Closed",
+        "progress": 1.0,
+        "color": Colors.green,
+        "vendors": "12 Vendors",
+        "date": "Closed",
+      },
+    ];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          "RFQ Status Tracking",
+          style: TextStyle(
+            color: darkText,
+            fontSize: 18,
+            fontWeight: FontWeight.w900,
+          ),
+        ),
+        const SizedBox(height: 12),
+
+        ListView.separated(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: rfqList.length,
+          separatorBuilder: (_, __) => const SizedBox(height: 12),
+          itemBuilder: (context, index) {
+            final rfq = rfqList[index];
+            final color = rfq["color"] as Color;
+
+            return Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(22),
+                border: Border.all(color: const Color(0xFFE5E7EB)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.04),
+                    blurRadius: 12,
+                    offset: const Offset(0, 6),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        height: 46,
+                        width: 46,
+                        decoration: BoxDecoration(
+                          color: color.withOpacity(0.12),
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Icon(
+                          Icons.track_changes_rounded,
+                          color: color,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              rfq["id"] as String,
+                              style: TextStyle(
+                                color: Colors.grey.shade500,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            Text(
+                              rfq["title"] as String,
+                              style: const TextStyle(
+                                color: darkText,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w900,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 6,
+                        ),
+                        decoration: BoxDecoration(
+                          color: color.withOpacity(0.12),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text(
+                          rfq["status"] as String,
+                          style: TextStyle(
+                            color: color,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: LinearProgressIndicator(
+                      value: rfq["progress"] as double,
+                      minHeight: 8,
+                      backgroundColor: const Color(0xFFE5E7EB),
+                      valueColor: AlwaysStoppedAnimation<Color>(color),
+                    ),
+                  ),
+
+                  const SizedBox(height: 12),
+
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.groups_rounded,
+                        size: 18,
+                        color: Colors.grey.shade600,
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        rfq["vendors"] as String,
+                        style: TextStyle(
+                          color: Colors.grey.shade600,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12,
+                        ),
+                      ),
+                      const Spacer(),
+                      Icon(
+                        Icons.calendar_month_rounded,
+                        size: 18,
+                        color: Colors.grey.shade600,
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        rfq["date"] as String,
+                        style: TextStyle(
+                          color: Colors.grey.shade600,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+      ],
+    );
+  }
+  }
+             ///Recent RFQ================//
   Widget _buildRfqList(BuildContext context) {
     final rfqs = [
       {
@@ -191,29 +474,23 @@ class RfqDashboardScreen extends StatelessWidget {
       },
     ];
 
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: rfqs.length,
-      itemBuilder: (context, index) {
-        final rfq = rfqs[index];
+    return Column(
+      children: rfqs.map((rfq) {
         final isOpen = rfq['status'] == 'Open';
 
         return Container(
           margin: const EdgeInsets.only(bottom: 14),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.92),
-            borderRadius: BorderRadius.circular(24),
-            border: Border.all(
-              color: Colors.white.withOpacity(0.75),
+            gradient: const LinearGradient(
+              colors: [
+                AppColors.summerygredient1,
+                AppColors.summerygredient2,
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
             ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.07),
-                blurRadius: 18,
-                offset: const Offset(0, 8),
-              ),
-            ],
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(color: const Color(0xFFE5E7EB)),
           ),
           child: Material(
             color: Colors.transparent,
@@ -234,27 +511,14 @@ class RfqDashboardScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(14),
                 child: Row(
                   children: [
-                    Container(
-                      height: 54,
-                      width: 54,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: isOpen
-                              ? [
-                            Colors.orange.withOpacity(0.85),
-                            Colors.deepOrange.withOpacity(0.75),
-                          ]
-                              : [
-                            const Color(0xFF8EABCC),
-                            const Color(0xFFBBCFE4),
-                          ],
-                        ),
-                        borderRadius: BorderRadius.circular(18),
-                      ),
-                      child: const Icon(
+                    CircleAvatar(
+                      radius: 27,
+                      backgroundColor: isOpen
+                          ? Colors.orange.withOpacity(0.12)
+                          : Colors.green.withOpacity(0.12),
+                      child: Icon(
                         Icons.request_quote_rounded,
-                        color: Colors.white,
-                        size: 28,
+                        color: isOpen ? Colors.orange : Colors.green,
                       ),
                     ),
 
@@ -269,23 +533,19 @@ class RfqDashboardScreen extends StatelessWidget {
                             style: const TextStyle(
                               fontWeight: FontWeight.w900,
                               fontSize: 16,
-                              color: darkText,
+                              //color: darkText,
                             ),
                           ),
-
                           const SizedBox(height: 6),
-
                           Text(
                             '${rfq['id']} • ${rfq['bids']} Bids Received',
                             style: const TextStyle(
-                              color: Color(0xFF6B7280),
+                              //color: lightText,
                               fontSize: 13,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-
                           const SizedBox(height: 10),
-
                           Container(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 10,
@@ -294,13 +554,13 @@ class RfqDashboardScreen extends StatelessWidget {
                             decoration: BoxDecoration(
                               color: isOpen
                                   ? Colors.orange.withOpacity(0.12)
-                                  : Colors.grey.withOpacity(0.12),
+                                  : Colors.green.withOpacity(0.12),
                               borderRadius: BorderRadius.circular(30),
                             ),
                             child: Text(
                               rfq['status'] as String,
                               style: TextStyle(
-                                color: isOpen ? Colors.orange : Colors.grey,
+                                color: isOpen ? Colors.orange : Colors.green,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w900,
                               ),
@@ -311,15 +571,15 @@ class RfqDashboardScreen extends StatelessWidget {
                     ),
 
                     Container(
-                      height: 38,
-                      width: 38,
+                      height: 40,
+                      width: 40,
                       decoration: BoxDecoration(
                         color: const Color(0xFFF1F5F9),
                         borderRadius: BorderRadius.circular(14),
                       ),
                       child: const Icon(
                         Icons.chevron_right_rounded,
-                        color: Color(0xFF64748B),
+                        color: AppColors.gradient3,
                       ),
                     ),
                   ],
@@ -328,7 +588,6 @@ class RfqDashboardScreen extends StatelessWidget {
             ),
           ),
         );
-      },
+      }).toList(),
     );
   }
-}

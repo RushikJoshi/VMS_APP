@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/constants/app_colors.dart';
 import 'vendor_details_screen.dart';
 
 class VendorsListScreen extends StatelessWidget {
@@ -17,39 +18,24 @@ class VendorsListScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF4F7FC),
 
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(15),
-        child: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color(0xFFBBCFE4),
-                Color(0xFFAECFF3),
-                Color(0xFF8EABCC),
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-
-          ),
-
-        ),
-      ),
 
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 18, 16, 10),
-            child: Text(
-                            "Vendor Monitoring",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 22,
-                            ),
-                          ),
-          ),
+ //          Padding(
+ //            padding: const EdgeInsets.fromLTRB(16, 18, 16, 10),
+ // ///heading======================
+ //            child:
+ //            Text(
+ //                            "Vendor Monitoring",
+ //                            style: TextStyle(
+ //                              color: Colors.black,
+ //                              fontWeight: FontWeight.w600,
+ //                              fontSize: 22,
+ //                            ),
+ //                          ),
+ //          ),
+///search bar============
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 18, 16, 10),
 
@@ -69,9 +55,7 @@ class VendorsListScreen extends StatelessWidget {
                   colors: [
                     Colors.white,
                     Color(0xFFD2DBF3),
-                    // Color(0xFFBBCFE4),
-                    // Color(0xFFAECFF3),
-                    // Color(0xFF8EABCC),
+
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -80,7 +64,6 @@ class VendorsListScreen extends StatelessWidget {
               ),
 
               child:
-
               Row(
                 children: [
                   Expanded(
@@ -114,8 +97,9 @@ class VendorsListScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       gradient: const LinearGradient(
                         colors: [
-                          Color(0xFF769DED),
-                          Color(0xFF1E5AE0),
+                          AppColors.gradient3,
+                          AppColors.gradient4
+
                         ],
                       ),
                       borderRadius: BorderRadius.circular(16),
@@ -132,7 +116,7 @@ class VendorsListScreen extends StatelessWidget {
               ),
             ),
           ),
-
+///  summery card===
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
@@ -161,7 +145,6 @@ class VendorsListScreen extends StatelessWidget {
       ),
     );
   }
-
   Widget _summaryCard(String title, String value, IconData icon) {
     return Expanded(
       child: Container(
@@ -169,10 +152,9 @@ class VendorsListScreen extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Colors.white,
-              Color(0xFFE0E7F3),
-              // Colors.white.withOpacity(0.95),
-              // const Color(0xFFEAF3FF),
+              AppColors.textPrimary,
+              AppColors.summeryCard,
+
             ],
           ),
           borderRadius: BorderRadius.circular(18),
@@ -203,7 +185,7 @@ class VendorsListScreen extends StatelessWidget {
       ),
     );
   }
-
+///vendor card==========================
   Widget _buildVendorCard(BuildContext context, int index) {
     final vendors = [
       {
@@ -244,8 +226,9 @@ class VendorsListScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         gradient: const LinearGradient(
           colors: [
-            Color(0xFFB8C9ED),
-            Color(0xFFE0E7F3),
+            AppColors.summerygredient1,
+            AppColors.summerygredient2,
+            //Color(0xFFB8C9ED),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -283,8 +266,8 @@ class VendorsListScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
                       colors: [
-                        Color(0xFF769DED),
-                        Color(0xFF1E5AE0),
+                        AppColors.gradient3,
+                        AppColors.gradient4
                       ],
                     ),
                     borderRadius: BorderRadius.circular(18),
@@ -380,7 +363,7 @@ class VendorsListScreen extends StatelessWidget {
                   ),
                   child: const Icon(
                     Icons.chevron_right_rounded,
-                    color: Color(0xFF769DED),
+                    color: AppColors.gradient3,
                   ),
                 ),
               ],

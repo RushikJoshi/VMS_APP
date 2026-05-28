@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/constants/app_colors.dart';
+
 class VendorDetailsScreen extends StatelessWidget {
   final String vendorName;
 
@@ -16,19 +18,15 @@ class VendorDetailsScreen extends StatelessWidget {
     return Scaffold(
 ///appbar
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(95),
+        preferredSize: const Size.fromHeight(65),
         child: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Color(0xFF4E8DE8),
-                Color(0xFF1B6BF8),
-                // Color(0xFF061F5A),
-                Color(0xFF769DED),
-                Color(0xFF1E5AE0),
-                // Color(0xFFBBCFE4),
-                // Color(0xFFAECFF3),
-                // Color(0xFF8EABCC),
+                AppColors.gradient1,
+                AppColors.gradient3,
+                AppColors.gradient4,
+
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -65,14 +63,7 @@ class VendorDetailsScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "Vendor Profile",
-                          style: TextStyle(
-                            color: Colors.white70,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
+
                         const SizedBox(height: 4),
                         Text(
                           vendorName,
@@ -152,7 +143,7 @@ class VendorDetailsScreen extends StatelessWidget {
       ),
     );
   }
-///profile header=====================
+///profile header supplies=====================
   Widget _buildProfileHeader() {
     return Container(
       width: double.infinity,
@@ -183,10 +174,9 @@ class VendorDetailsScreen extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: const LinearGradient(
                 colors: [
-                  Color(0xFF769DED),
-                  Color(0xFF1E5AE0),
-                  // Color(0xFFBBCFE4),
-                  // Color(0xFF8EABCC),
+                  AppColors.gradient3,
+                  AppColors.gradient4
+
                 ],
               ),
               borderRadius: BorderRadius.circular(20),
@@ -368,10 +358,8 @@ class VendorDetailsScreen extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [
-            // Color(0xFFB8C9ED),
-            // Color(0xFFE0E7F3),
-            Colors.white,
-            Color(0xFFE0E7F3),
+           AppColors.textPrimary,
+            AppColors.summeryCard,
           ],
         ),
         borderRadius: BorderRadius.circular(22),
@@ -426,15 +414,15 @@ class VendorDetailsScreen extends StatelessWidget {
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: 3,
+      itemCount: 4,
       itemBuilder: (context, index) {
         return Container(
           margin: const EdgeInsets.only(bottom: 12),
           decoration: BoxDecoration(
             gradient: const LinearGradient(
               colors: [
-                Color(0xFFB8C9ED),
-                Color(0xFFE0E7F3),
+                AppColors.summerygredient1,
+                AppColors.summerygredient2,
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -460,8 +448,8 @@ class VendorDetailsScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
                   colors: [
-                    Color(0xFF769DED),
-                    Color(0xFF1E5AE0),
+                    AppColors.gradient3,
+                    AppColors.gradient4
                   ],
                 ),
                 borderRadius: BorderRadius.circular(16),
@@ -494,7 +482,7 @@ class VendorDetailsScreen extends StatelessWidget {
               ),
               child: const Icon(
                 Icons.chevron_right_rounded,
-                color: Color(0xFF769DED),
+                color: AppColors.gradient3,
               ),
             ),
           ),

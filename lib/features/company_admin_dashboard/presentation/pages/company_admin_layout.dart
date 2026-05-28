@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/constants/app_colors.dart';
 import 'company_admin_dashboard_tab.dart';
 import '../../../vendor_management/presentation/pages/vendors_list_screen.dart';
 import '../../../rfq_management/presentation/pages/rfq_dashboard_screen.dart';
@@ -28,20 +29,15 @@ class _CompanyAdminLayoutState extends State<CompanyAdminLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
-
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                // Color(0xFFBBCFE4),
-                // Color(0xFFAECFF3),
-                // Color(0xFF8EABCC),
-                Color(0xFF4E8DE8),
-                // Color(0xFF1B6BF8),
-                // Color(0xFF061F5A),
-                Color(0xFF769DED),
-                Color(0xFF1E5AE0),
+
+                AppColors.gradient1,
+                AppColors.gradient3,
+                AppColors.gradient4,
+
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -51,20 +47,20 @@ class _CompanyAdminLayoutState extends State<CompanyAdminLayout> {
 
         title: const Row(
           children: [
-
+///icon=================
             Icon(
               Icons.apartment,
               color: Colors.white,
             ),
 
             SizedBox(width: 8),
-
+///title==================
             Text(
               'Company ERP',
 
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: AppColors.textPrimary,
                 fontSize: 24,
               ),
             ),
@@ -72,23 +68,20 @@ class _CompanyAdminLayoutState extends State<CompanyAdminLayout> {
         ),
 
         actions: [
-
+///notification icon=========
           IconButton(
             icon: const Icon(
               Icons.notifications_outlined,
-              color: Colors.white,
+              color: AppColors.textPrimary,
             ),
 
             onPressed: () {},
           ),
-
+///profile icon=======================
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
-
             child: CircleAvatar(
-
-              backgroundColor: Colors.white,
-
+              backgroundColor: AppColors.textPrimary,
               child: Icon(
                 Icons.person,
                 color: Color(0xFF8EABCC),
@@ -96,8 +89,13 @@ class _CompanyAdminLayoutState extends State<CompanyAdminLayout> {
             ),
           ),
         ],
-      ),      drawer: const CompanyAdminDrawer(),
+      ),
+///drawer==================
+      drawer: const CompanyAdminDrawer(),
+ ///body=============
       body: _pages[_currentIndex],
+
+ ///bottom nav bar=================================
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {
@@ -106,8 +104,8 @@ class _CompanyAdminLayoutState extends State<CompanyAdminLayout> {
           });
         },
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.blue.shade900,
-        unselectedItemColor: Colors.grey,
+        selectedItemColor:AppColors.buttonPrimary ,
+        unselectedItemColor: AppColors.textSecondary,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.dashboard), label: 'Dashboard'),
           BottomNavigationBarItem(icon: Icon(Icons.business), label: 'Vendors'),
