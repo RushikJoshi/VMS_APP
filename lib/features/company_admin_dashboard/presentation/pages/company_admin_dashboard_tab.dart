@@ -1,62 +1,76 @@
 ﻿import 'package:flutter/material.dart';
-
+import 'package:vms_app/data/repositories/dash_repository.dart';
+import 'package:vms_app/data/models/admin_stats_model.dart';
 import '../../../../core/constants/app_colors.dart';
 
-class CompanyAdminDashboardTab extends StatelessWidget {
+class CompanyAdminDashboardTab extends StatefulWidget {
   const CompanyAdminDashboardTab({super.key});
 
+  @override
+  State<CompanyAdminDashboardTab> createState() => _CompanyAdminDashboardTabState();
+}
+
+class _CompanyAdminDashboardTabState extends State<CompanyAdminDashboardTab> {
+  AdminStatsData? statsData;
+  bool isLoading = true;
+  final AdminService _adminService = AdminService();
+  @override
+  void initState() {
+    getDashboardData();
+
+    super.initState();
+  }
+
+  Future<void> getDashboardData() async {
+    final response = await _adminService.getAdminStats();
+
+    if (mounted) {
+      setState(() {
+        statsData = response?.data;
+        isLoading = false;
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF6F8FC),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Dashboard Overview",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 22,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(height: 12),
-
-              /// ================= HEADER =================
-              _buildHeroPanel(),
-
-              const SizedBox(height: 18),
-
-              /// ================= KPI LIST =================
-              _buildKpiList(),
-
-              const SizedBox(height: 22),
-
-              /// ================= QUICK ACTIONS =================
-              _title("Quick Actions"),
-              const SizedBox(height: 10),
-              _buildQuickActions(),
-
-              const SizedBox(height: 22),
-
-              /// ================= CHART =================
-              _title("Procurement Trends"),
-              const SizedBox(height: 10),
-              _buildGraphCard(),
-
-              const SizedBox(height: 22),
-
-              /// ================= TIMELINE =================
-              _title("Recent Activities"),
-              const SizedBox(height: 10),
-              _activityPanel(),
-            ],
-          ),
-        ),
-      ),
+      body: isLoading
+        ? const Center(child: CircularProgressIndicator())
+        : SafeArea(
+    child: SingleChildScrollView(
+    padding: const EdgeInsets.all(16),
+    child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+    const Text(
+    "Dashboard Overview",
+    style: TextStyle(
+    color: Colors.black,
+    fontSize: 22,
+    fontWeight: FontWeight.w600,
+    ),
+    ),
+    const SizedBox(height: 12),
+    _buildHeroPanel(),
+    const SizedBox(height: 18),
+    _buildKpiList(),
+    const SizedBox(height: 22),
+    _title("Quick Actions"),
+    const SizedBox(height: 10),
+    _buildQuickActions(),
+    const SizedBox(height: 22),
+    _title("Procurement Trends"),
+    const SizedBox(height: 10),
+    _buildGraphCard(),
+    const SizedBox(height: 22),
+    _title("Recent Activities"),
+    const SizedBox(height: 10),
+    _activityPanel(),
+    ],
+    ),
+    ),
+    ),
     );
   }
 
@@ -115,9 +129,9 @@ class CompanyAdminDashboardTab extends StatelessWidget {
               const SizedBox(height: 20),
               Row(
                 children: [
-                  _heroMini("42", "Vendors"),
-                  _heroMini("15", "RFQs"),
-                  _heroMini("8", "Orders"),
+                  _heroMini("${statsData?.totalVendors ?? 0}", "Vendors"),
+                  _heroMini("${statsData?.pendingApprovals ?? 0}", "Pending"),
+                  _heroMini("${statsData?.activeContracts ?? 0}", "Contracts"),
                 ],
               ),
             ],
@@ -162,15 +176,14 @@ class CompanyAdminDashboardTab extends StatelessWidget {
     );
   }
 
-  Widget _buildKpiList() {
-    final items = [
-      ("Vendors", "42", Icons.business, Colors.indigo),
-      ("RFQs", "15", Icons.request_quote, Colors.orange),
-      ("Orders", "08", Icons.shopping_cart, Colors.blue),
-      ("Shipments", "12", Icons.local_shipping, Colors.teal),
-      ("Payments", "05", Icons.payment, Colors.red),
-      ("Employees", "140", Icons.people, Colors.green),
-    ];
+  Widget _buildKpiList() {final items = [
+    ("Total Vendors", "${statsData?.totalVendors ?? 0}", Icons.business, Colors.indigo),
+    ("Pending", "${statsData?.pendingApprovals ?? 0}", Icons.pending_actions, Colors.orange),
+    ("Blacklisted", "${statsData?.blacklisted ?? 0}", Icons.block, Colors.red),
+    ("Contracts", "${statsData?.activeContracts ?? 0}", Icons.assignment, Colors.blue),
+    ("Expiring Soon", "${statsData?.expiringSoon ?? 0}", Icons.warning, Colors.teal),
+    ("Low Risk", "${statsData?.riskStats.low ?? 0}", Icons.verified, Colors.green),
+  ];
 
     return SizedBox(
       height: 130,
@@ -321,6 +334,7 @@ class CompanyAdminDashboardTab extends StatelessWidget {
       ),
     );
   }
+
   /// ================= CHART =================
   ///graph==============
   Widget _buildGraphCard() {

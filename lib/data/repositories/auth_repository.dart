@@ -33,6 +33,7 @@ class AuthService {
 
         headers: {
           'Content-Type': 'application/json',
+
         },
         body: jsonEncode({
           'email': email,

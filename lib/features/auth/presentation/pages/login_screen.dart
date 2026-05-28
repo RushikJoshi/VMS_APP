@@ -63,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (email.toLowerCase().contains('admin')) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) => const SuperAdminLayout()),
+          MaterialPageRoute(builder: (_) => const CompanyAdminLayout()),
         );
       } else if (email.toLowerCase().contains('procurement')) {
         Navigator.pushReplacement(
