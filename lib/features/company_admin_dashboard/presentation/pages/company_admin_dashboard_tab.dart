@@ -1,84 +1,159 @@
 ﻿import 'package:flutter/material.dart';
 
-class CompanyAdminDashboardTab extends StatelessWidget {
-  const CompanyAdminDashboardTab({Key? key}) : super(key: key);
-  // static const Color c1 = Color(0xFFBBCFE4);
-  // static const Color c2 = Color(0xFFAECFF3);
-  // static const Color c3 = Color(0xFF8EABCC);
+import '../../../../core/constants/app_colors.dart';
 
+class CompanyAdminDashboardTab extends StatelessWidget {
+  const CompanyAdminDashboardTab({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF6F8FC),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Dashboard Overview",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 12),
 
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Dashboard Overview', style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Colors.black,)),
-            const SizedBox(height: 16),
-            _buildAnalyticsGrid(),
-            const SizedBox(height: 24),
-            const Text('Quick Actions', style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.black,)),
-            const SizedBox(height: 16),
-            _buildQuickActions(),
-            const SizedBox(height: 24),
-            const Text('Procurement Trends', style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.black,)),
-            const SizedBox(height: 16),
-            _buildGraphPlaceholder('Procurement Trends & Monthly Spending'),
-            const SizedBox(height: 24),
-            const Text('Recent Activities', style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.black,)),
-            const SizedBox(height: 16),
-            _buildRecentActivities(),
-          ],
+              /// ================= HEADER =================
+              _buildHeroPanel(),
+
+              const SizedBox(height: 18),
+
+              /// ================= KPI LIST =================
+              _buildKpiList(),
+
+              const SizedBox(height: 22),
+
+              /// ================= QUICK ACTIONS =================
+              _title("Quick Actions"),
+              const SizedBox(height: 10),
+              _buildQuickActions(),
+
+              const SizedBox(height: 22),
+
+              /// ================= CHART =================
+              _title("Procurement Trends"),
+              const SizedBox(height: 10),
+              _buildGraphCard(),
+
+              const SizedBox(height: 22),
+
+              /// ================= TIMELINE =================
+              _title("Recent Activities"),
+              const SizedBox(height: 10),
+              _activityPanel(),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildAnalyticsGrid() {
-    return GridView.count(
-      crossAxisCount: 2,
-      crossAxisSpacing: 12,
-      mainAxisSpacing: 12,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      childAspectRatio: 1.55,
-      children: [
-        _buildStatCard('Vendors', '42', 'Active Vendors', Icons.business, Colors.indigo),
-        _buildStatCard('RFQs', '15', 'Active RFQs', Icons.request_quote, Colors.orange),
-        _buildStatCard('Orders', '8', 'Active PO/SO', Icons.shopping_cart, Colors.blue),
-        _buildStatCard('Shipments', '12', 'Active Deliveries', Icons.local_shipping, Colors.teal),
-        _buildStatCard('Payments', '5', 'Pending Approvals', Icons.payment, Colors.red),
-        _buildStatCard('Employees', '140', 'Company Users', Icons.people, Colors.green),
-      ],
+  ///Erp performance==================
+  Widget _buildHeroPanel() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(22),
+      decoration: BoxDecoration(
+        color: AppColors.gradient3,
+        borderRadius: BorderRadius.circular(30),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.blue.withOpacity(0.25),
+            blurRadius: 24,
+            offset: const Offset(0, 12),
+          ),
+        ],
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            right: -30,
+            top: -30,
+            child: CircleAvatar(
+              radius: 70,
+              backgroundColor: Colors.white.withOpacity(0.10),
+            ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Icon(
+                Icons.analytics_rounded,
+                color: Colors.white,
+                size: 34,
+              ),
+              const SizedBox(height: 18),
+              const Text(
+                "ERP Performance",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+              const SizedBox(height: 6),
+              Text(
+                "Vendors, RFQs, orders and payments are monitored from here.",
+                style: TextStyle(
+                  color: Colors.white.withOpacity(0.80),
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  _heroMini("42", "Vendors"),
+                  _heroMini("15", "RFQs"),
+                  _heroMini("8", "Orders"),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
-  Widget _buildStatCard(String title, String value, String subtitle, IconData icon, Color color) {
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Row(
+  ///Erp=====
+  Widget _heroMini(String value, String title) {
+    return Expanded(
+      child: Container(
+        margin: const EdgeInsets.only(right: 10),
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.14),
+          borderRadius: BorderRadius.circular(18),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CircleAvatar(
-              radius: 20,
-              backgroundColor: color.withValues(alpha: 0.1),
-              child: Icon(icon, color: color, size: 20),
+            Text(
+              value,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.w900,
+              ),
             ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(title, style: const TextStyle(color: Colors.grey, fontSize: 11, fontWeight: FontWeight.w600)),
-                  FittedBox(fit: BoxFit.scaleDown, child: Text(value, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold))),
-                  Text(subtitle, style: const TextStyle(color: Colors.grey, fontSize: 9), overflow: TextOverflow.ellipsis),
-                ],
+            Text(
+              title,
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.75),
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ],
@@ -86,122 +161,421 @@ class CompanyAdminDashboardTab extends StatelessWidget {
       ),
     );
   }
-///Quick  Actions===============================
+
+  Widget _buildKpiList() {
+    final items = [
+      ("Vendors", "42", Icons.business, Colors.indigo),
+      ("RFQs", "15", Icons.request_quote, Colors.orange),
+      ("Orders", "08", Icons.shopping_cart, Colors.blue),
+      ("Shipments", "12", Icons.local_shipping, Colors.teal),
+      ("Payments", "05", Icons.payment, Colors.red),
+      ("Employees", "140", Icons.people, Colors.green),
+    ];
+
+    return SizedBox(
+      height: 130,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemCount: items.length,
+        separatorBuilder: (_, __) => const SizedBox(width: 12),
+        itemBuilder: (context, i) {
+          final item = items[i];
+
+          return Container(
+            width: 150,
+            padding: const EdgeInsets.all(14),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(18),
+
+              /// 🌈 gradient background (premium look)
+              gradient: LinearGradient(
+                colors: [Colors.white, (item.$4 as Color).withOpacity(0.08)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+
+              /// shadow
+              boxShadow: [
+                BoxShadow(
+                  color: (item.$4 as Color).withOpacity(0.15),
+                  blurRadius: 12,
+                  offset: const Offset(0, 6),
+                ),
+              ],
+
+              border: Border.all(color: (item.$4 as Color).withOpacity(0.15)),
+            ),
+
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                /// ICON
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: (item.$4 as Color).withOpacity(0.15),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(item.$3, color: item.$4, size: 22),
+                ),
+
+                const Spacer(),
+
+                /// VALUE
+                Text(
+                  item.$2,
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF111827),
+                  ),
+                ),
+
+                const SizedBox(height: 2),
+
+                /// TITLE
+                Text(
+                  item.$1,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.grey.shade700,
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  ///================= QUICK ACTIONS =================
   Widget _buildQuickActions() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
+    final actions = [
+      ("Add Vendor", Icons.business),
+      ("RFQ", Icons.request_quote),
+      ("PO", Icons.receipt),
+      ("Invoice", Icons.payment),
+      ("Analytics", Icons.bar_chart),
+    ];
+
+    return SizedBox(
+      height: 105,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemCount: actions.length,
+        separatorBuilder: (_, __) => const SizedBox(width: 12),
+        itemBuilder: (context, index) {
+          final item = actions[index];
+
+          return Container(
+            width: 115,
+            padding: const EdgeInsets.all(14),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(22),
+              border: Border.all(
+                color: AppColors.gradient3.withOpacity(0.25),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.gradient3.withOpacity(0.12),
+                  blurRadius: 14,
+                  offset: const Offset(0, 6),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 42,
+                  width: 42,
+                  decoration: BoxDecoration(
+                    color: AppColors.gradient3.withOpacity(0.14),
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: Icon(
+                    item.$2,
+                    color: AppColors.gradient3,
+                    size: 22,
+                  ),
+                ),
+
+                const SizedBox(height: 10),
+
+                Text(
+                  item.$1,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Color(0xFF111827),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+  /// ================= CHART =================
+  ///graph==============
+  Widget _buildGraphCard() {
+    return Container(
+      height: 260,
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(28),
+        border: Border.all(color: const Color(0xFFE5E7EB)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 14,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 4),
+
+          Row(
+            children: [
+              const Expanded(
+                child: Text(
+                  "Monthly spending overview",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                decoration: BoxDecoration(
+                  color: AppColors.gradient3.withOpacity(0.10),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(
+                  "2026",
+                  style: TextStyle(
+                    color: AppColors.gradient3,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 18),
+
+          Expanded(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                _bar(70, "Jan"),
+                _bar(120, "Feb"),
+                _bar(85, "Mar"),
+                _bar(155, "Apr"),
+                _bar(120, "May"),
+                _bar(195, "Jun"),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  ///bar function=====================
+  Widget _bar(double height, String month) {
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Expanded(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                width: 22,
+                height: double.infinity,
+                decoration: BoxDecoration(
+                  color: AppColors.gradient3.withOpacity(0.08),
+                  borderRadius: BorderRadius.circular(18),
+                ),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    width: 22,
+
+                    ///dynamic height using========
+                    height: height,
+
+                    decoration: BoxDecoration(
+                      color: AppColors.gradient3,
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 8),
+
+          Text(
+            month,
+            style: const TextStyle(
+              fontSize: 10,
+              color: Colors.grey,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  ///timeline==================
+  Widget _activityPanel() {
+    final activities = [
+      [
+        "Vendor Registered",
+        "Tech Solutions Inc. joined the platform.",
+        Icons.person_add,
+        Colors.blue,
+        "10 mins ago",
+      ],
+      [
+        "RFQ Created",
+        "RFQ-2023-089 for 50 Laptops published.",
+        Icons.request_quote,
+        Colors.orange,
+        "1 hour ago",
+      ],
+      [
+        "Shipment Delivered",
+        "SHP-99042 delivered to Mumbai Hub.",
+        Icons.local_shipping,
+        Colors.teal,
+        "3 hours ago",
+      ],
+      [
+        "Invoice Approved",
+        "INV-5502 approved by Finance.",
+        Icons.receipt,
+        Colors.green,
+        "5 hours ago",
+      ],
+      [
+        "Payment Released",
+        "₹2,50,000 paid to Office Supplies Ltd.",
+        Icons.payment,
+        Colors.red,
+        "1 day ago",
+      ],
+    ];
+
+    return Container(
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(28),
+        border: Border.all(color: const Color(0xFFE5E7EB)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Recent Activities",
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w900,
+              fontSize: 20,
+            ),
+          ),
+          const SizedBox(height: 14),
+          ...activities.map((item) {
+            return _activityTile(
+              item[0] as String,
+              item[1] as String,
+              item[2] as IconData,
+              item[3] as Color,
+              item[4] as String,
+            );
+          }),
+        ],
+      ),
+    );
+  }
+
+  Widget _activityTile(
+    String title,
+    String subtitle,
+    IconData icon,
+    Color color,
+    String time,
+  ) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 13),
       child: Row(
         children: [
-          _buildActionButton(Icons.business, 'Add Vendor', Colors.redAccent.shade200),
+          CircleAvatar(
+            backgroundColor: color.withOpacity(0.10),
+            child: Icon(icon, color: color, size: 20),
+          ),
           const SizedBox(width: 12),
-          _buildActionButton(Icons.add_shopping_cart, 'Create RFQ', Colors.indigo.shade600),
-          const SizedBox(width: 12),
-          _buildActionButton(Icons.receipt, 'Generate PO', Colors.orange.shade400),
-          const SizedBox(width: 12),
-          _buildActionButton(Icons.payment, 'Approve Invoice', Colors.blue.shade400),
-          const SizedBox(width: 12),
-          _buildActionButton(Icons.analytics, 'View Analytics', Colors.green.shade700),
-        ],
-      ),
-    );
-  }
-  ///ActionButton  icon======================
-  Widget _buildActionButton(IconData icon, String label, Color color) {
-    return ElevatedButton.icon(
-      onPressed: () {},
-      icon: Icon(icon, color: Colors.white),
-      label: Text(label, style: const TextStyle(color: Colors.white)),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: color,
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      ),
-    );
-  }
-///graph=======================================
-  Widget _buildGraphPlaceholder(String title) {
-    return Container(
-      height: 200,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: Color(0xFFD6E3F6).withOpacity(.92),
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color:  Colors.white),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(.25),
-            blurRadius: 18,
-            offset: const Offset(0, 8),
+
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w900,
+                    fontSize: 13,
+                  ),
+                ),
+                Text(
+                  subtitle,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: AppColors.textSecondary,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          Text(
+            time,
+            style: const TextStyle(
+              color: AppColors.buttonPrimary,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ],
       ),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.bar_chart, size: 64, color: Colors.blue.shade700),
-            const SizedBox(height: 8),
-            Text(title, style: TextStyle(color: Colors.grey.shade700, fontWeight: FontWeight.w700)),
-          ],
-        ),
-      ),
-    );
-  }
-///RecentActivities===================================
-  Widget _buildRecentActivities() {
-    return Container(
-      decoration: BoxDecoration(
-        // gradient: const LinearGradient(
-        //   colors: [
-        //     Color(0xFFB8C9ED),
-        //     Color(0xFFE0E7F3),
-        //   ],
-        //   begin: Alignment.topLeft,
-        //   end: Alignment.bottomRight,
-        // ),
-       color: Colors.white.withOpacity(0.92),
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF8EABCC).withOpacity(0.25),
-            blurRadius: 18,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: ListView(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        children: [
-          SizedBox(height: 10,),
-          _buildActivityTile('Vendor Registered', 'Tech Solutions Inc. joined the platform.', Icons.person_add, Colors.blue, '10 mins ago'),
-          SizedBox(height: 10,),
-
-          _buildActivityTile('RFQ Created', 'RFQ-2023-089 for 50 Laptops published.', Icons.request_quote, Colors.orange, '1 hour ago'),
-          SizedBox(height: 10,),
-
-          _buildActivityTile('Shipment Delivered', 'SHP-99042 delivered to Mumbai Hub.', Icons.local_shipping, Colors.teal, '3 hours ago'),
-          SizedBox(height: 10,),
-          _buildActivityTile('Invoice Approved', 'INV-5502 approved by Finance.', Icons.receipt, Colors.green, '5 hours ago'),
-          SizedBox(height: 10,),
-
-          _buildActivityTile('Payment Released', '₹2,50,000 paid to Office Supplies Ltd.', Icons.payment, Colors.red, '1 day ago'),
-          SizedBox(height: 10,),
-
-        ],
-      ),
     );
   }
 
-  Widget _buildActivityTile(String title, String subtitle, IconData icon, Color color, String time) {
-    return ListTile(
-      leading: CircleAvatar(
-        backgroundColor: color.withValues(alpha: 0.1),
-        child: Icon(icon, color: color, size: 30),
-      ),
-      title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      subtitle: Text(subtitle, style: const TextStyle(fontSize: 12)),
-      trailing: Text(time, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+  Widget _title(String text) {
+    return Text(
+      text,
+      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
     );
   }
 }

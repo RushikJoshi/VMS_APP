@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import '../../../../core/constants/app_colors.dart';
 import 'onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -48,15 +49,11 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
             end: Alignment.bottomRight,
 
             colors: [
-              //
-              // Color(0xFFBBCFE4),
-              // Color(0xFFAECFF3),
-              // Color(0xFF8EABCC),
-              Color(0xFF4E8DE8),
-             Color(0xFF1B6BF8),
-             // Color(0xFF061F5A),
-              Color(0xFF769DED),
-              Color(0xFF1E5AE0),
+              AppColors.gradient1,
+              AppColors.gradient2,
+              AppColors.gradient3,
+              AppColors.gradient4,
+
 
             ],
           ),
@@ -70,7 +67,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                 Container(
                   padding: const EdgeInsets.all(24),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color:  AppColors.textPrimary,
                     shape: BoxShape.circle,
                     boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.2), blurRadius: 20, spreadRadius: 5)],
                   ),
@@ -106,17 +103,13 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                     Container(
                       height: 2,
                       width: 45,
-                      color: const Color(0xFF2563EB),
+                      color:AppColors.buttonPrimary,
                     ),
                   ],
                 ),
 
-                // const Text(
-                //   'Super Admin Gateway',
-                //   style: TextStyle(fontSize: 16, color: Colors.white70, letterSpacing: 1),
-                // ),
-                const SizedBox(height: 48),
-                //const CircularProgressIndicator(color: Colors.white),
+
+
               ],
             ),
           ),

@@ -1,4 +1,5 @@
 ﻿import 'package:flutter/material.dart';
+import '../../../../core/constants/app_colors.dart';
 import '../../../dashboard/presentation/pages/analytics_tab.dart';
 import '../../../finance_management/presentation/pages/invoices_list_screen.dart';
 import '../../../finance_management/presentation/pages/payments_screen.dart';
@@ -29,14 +30,11 @@ class CompanyAdminDrawer extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: const LinearGradient(
                 colors: [
-                  Color(0xFF4E8DE8),
-                 // Color(0xFF1B6BF8),
-                  // Color(0xFF061F5A),
-                  Color(0xFF769DED),
-                  Color(0xFF1E5AE0),
-                  // Color(0xFFBBCFE4),
-                  // Color(0xFFAECFF3),
-                  // Color(0xFF8EABCC),
+
+                  AppColors.gradient1,
+                  AppColors.gradient3,
+                  AppColors.gradient4,
+
                 ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -50,8 +48,8 @@ class CompanyAdminDrawer extends StatelessWidget {
                 SizedBox(height: 20),
                 CircleAvatar(radius: 30, backgroundColor: Colors.white, child: Icon(Icons.business, size: 30, color: Colors.blue)),
                 SizedBox(height: 16),
-                Text('Acme Corp', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
-                Text('admin@acmecorp.com', style: TextStyle(color: Colors.white70, fontSize: 14)),
+                Text('Acme Corp', style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold)),
+                Text('admin@acmecorp.com', style: TextStyle(color: Colors.black, fontSize: 14)),
               ],
             ),
           ),
@@ -108,9 +106,10 @@ class CompanyAdminDrawer extends StatelessWidget {
             ),
           ),
           const Divider(height: 1),
+///logout===============
           ListTile(
             leading: const Icon(Icons.logout, color: Colors.red),
-            title: const Text('Logout', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+            title: const Text('Logout', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold,fontSize: 20)),
             onTap: () {},
           ),
 
@@ -118,21 +117,21 @@ class CompanyAdminDrawer extends StatelessWidget {
       ),
     );
   }
-
+///sub title header=====================
   Widget _buildSectionHeader(String title) {
     return Padding(
       padding: const EdgeInsets.only(left: 16, top: 16, bottom: 8),
       child: Text(
         title,
-        style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.grey, letterSpacing: 1.2),
+        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey, letterSpacing: 1.2),
       ),
     );
   }
-
+/// icon color & text color=======================
   Widget _buildNavItem(BuildContext context, IconData icon, String title, VoidCallback onTap) {
     return ListTile(
-      leading: Icon(icon, color: Colors.blue.shade900),
-      title: Text(title, style: const TextStyle(fontWeight: FontWeight.w500)),
+      leading: Icon(icon, color: AppColors.buttonPrimary),
+      title: Text(title, style: const TextStyle(fontWeight: FontWeight.w500,fontSize: 16)),
       dense: true,
       onTap: onTap,
     );
