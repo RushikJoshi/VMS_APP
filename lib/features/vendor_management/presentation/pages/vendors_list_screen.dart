@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:vms_app/data/repositories/vendor_list_repository.dart';
 import '../../../../core/constants/app_colors.dart';
 import 'vendor_details_screen.dart';
+import 'package:vms_app/data/models/admin_vendor_list_model.dart';
 
-class VendorsListScreen extends StatelessWidget {
+class VendorsListScreen extends StatefulWidget {
   final String userRole;
 
   const VendorsListScreen({
@@ -14,31 +16,74 @@ class VendorsListScreen extends StatelessWidget {
   static const Color primaryColor = Color(0xFF2563EB);
 
   @override
+  State<VendorsListScreen> createState() => _VendorsListScreenState();
+}
+
+class _VendorsListScreenState extends State<VendorsListScreen> {
+  bool isLoading = true;
+  List<VendorData> vendors = [];//model object
+
+
+
+  final VendorListRepository _vendorRepository = VendorListRepository();
+
+  @override
+  void initState() {
+    super.initState();
+    getVendorList();
+  }
+
+  Future<void> getVendorList() async {
+    final response = await _vendorRepository.getVendors();
+
+    if (mounted) {
+      setState(() {
+        vendors = response?.data ?? [];
+        isLoading = false;
+      });
+    }
+  }
+
+  Color _statusColor(String status) {
+    switch (status.toLowerCase()) {
+      case 'active':
+      case 'approved':
+        return Colors.green;
+      case 'suspended':
+        return Colors.red;
+      case 'pending':
+        return Colors.orange;
+      default:
+        return Colors.blueGrey;
+    }
+  }
+
+  int get approvedCount {
+    return vendors.where((v) {
+      final status = (['status'] ?? '').toString().toLowerCase();
+      return status == 'approved' || status == 'active';
+    }).length;
+  }
+
+  int get pendingCount {
+    return vendors.where((v) {
+      final status = (['status'] ?? '').toString().toLowerCase();
+      return status == 'pending';
+    }).length;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF4F7FC),
-
-
-      body: Column(
+      body: isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
- //          Padding(
- //            padding: const EdgeInsets.fromLTRB(16, 18, 16, 10),
- // ///heading======================
- //            child:
- //            Text(
- //                            "Vendor Monitoring",
- //                            style: TextStyle(
- //                              color: Colors.black,
- //                              fontWeight: FontWeight.w600,
- //                              fontSize: 22,
- //                            ),
- //                          ),
- //          ),
-///search bar============
+          /// SEARCH BAR
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 18, 16, 10),
-
             child: Container(
               padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
@@ -51,20 +96,16 @@ class VendorsListScreen extends StatelessWidget {
                     offset: const Offset(0, 8),
                   ),
                 ],
-                gradient: LinearGradient(
+                gradient: const LinearGradient(
                   colors: [
                     Colors.white,
                     Color(0xFFD2DBF3),
-
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
-
               ),
-
-              child:
-              Row(
+              child: Row(
                 children: [
                   Expanded(
                     child: TextField(
@@ -76,7 +117,7 @@ class VendorsListScreen extends StatelessWidget {
                         ),
                         prefixIcon: const Icon(
                           Icons.search_rounded,
-                          color: primaryColor,
+                          color: VendorsListScreen.primaryColor,
                         ),
                         filled: true,
                         fillColor: const Color(0xFFF4F7FC),
@@ -84,13 +125,12 @@ class VendorsListScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(16),
                           borderSide: BorderSide.none,
                         ),
-                        contentPadding: const EdgeInsets.symmetric(vertical: 0),
+                        contentPadding:
+                        const EdgeInsets.symmetric(vertical: 0),
                       ),
                     ),
                   ),
-
                   const SizedBox(width: 12),
-
                   Container(
                     height: 48,
                     width: 48,
@@ -98,8 +138,7 @@ class VendorsListScreen extends StatelessWidget {
                       gradient: const LinearGradient(
                         colors: [
                           AppColors.gradient3,
-                          AppColors.gradient4
-
+                          AppColors.gradient4,
                         ],
                       ),
                       borderRadius: BorderRadius.circular(16),
@@ -116,16 +155,29 @@ class VendorsListScreen extends StatelessWidget {
               ),
             ),
           ),
-///  summery card===
+
+          /// SUMMARY CARD
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               children: [
-                _summaryCard("Total", "4", Icons.groups_rounded),
+                _summaryCard(
+                  "Total",
+                  vendors.length.toString(),
+                  Icons.groups_rounded,
+                ),
                 const SizedBox(width: 10),
-                _summaryCard("Verified", "3", Icons.verified_rounded),
+                _summaryCard(
+                  "Active",
+                  approvedCount.toString(),
+                  Icons.verified_rounded,
+                ),
                 const SizedBox(width: 10),
-                _summaryCard("Pending", "1", Icons.pending_actions_rounded),
+                _summaryCard(
+                  "Pending",
+                  pendingCount.toString(),
+                  Icons.pending_actions_rounded,
+                ),
               ],
             ),
           ),
@@ -133,9 +185,20 @@ class VendorsListScreen extends StatelessWidget {
           const SizedBox(height: 12),
 
           Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              itemCount: 4,
+            child: vendors.isEmpty
+                ? const Center(
+              child: Text(
+                "No vendors found",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            )
+                : ListView.builder(
+              padding:
+              const EdgeInsets.symmetric(horizontal: 16.0),
+              itemCount: vendors.length,
               itemBuilder: (context, index) {
                 return _buildVendorCard(context, index);
               },
@@ -145,16 +208,16 @@ class VendorsListScreen extends StatelessWidget {
       ),
     );
   }
+
   Widget _summaryCard(String title, String value, IconData icon) {
     return Expanded(
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
             colors: [
               AppColors.textPrimary,
               AppColors.summeryCard,
-
             ],
           ),
           borderRadius: BorderRadius.circular(18),
@@ -162,12 +225,12 @@ class VendorsListScreen extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Icon(icon, color: primaryColor, size: 22),
+            Icon(icon, color: VendorsListScreen.primaryColor, size: 22),
             const SizedBox(height: 6),
             Text(
               value,
               style: const TextStyle(
-                color: darkText,
+                color: VendorsListScreen.darkText,
                 fontSize: 18,
                 fontWeight: FontWeight.w900,
               ),
@@ -185,40 +248,21 @@ class VendorsListScreen extends StatelessWidget {
       ),
     );
   }
-///vendor card==========================
+///vendor card-------------------------------------------------///
   Widget _buildVendorCard(BuildContext context, int index) {
-    final vendors = [
-      {
-        'name': 'Global Supplies Ltd.',
-        'rating': 4.8,
-        'status': 'Verified',
-        'orders': 120,
-        'color': Colors.green,
-      },
-      {
-        'name': 'Tech Hardware Inc.',
-        'rating': 4.5,
-        'status': 'Verified',
-        'orders': 85,
-        'color': Colors.green,
-      },
-      {
-        'name': 'Office Essentials Co.',
-        'rating': 3.9,
-        'status': 'Pending Verification',
-        'orders': 10,
-        'color': Colors.orange,
-      },
-      {
-        'name': 'Logistics Pro',
-        'rating': 4.2,
-        'status': 'Verified',
-        'orders': 300,
-        'color': Colors.green,
-      },
-    ];
-
     final vendor = vendors[index];
+
+    final companyName = vendor.companyName;
+    final email = vendor.email;
+    final status = vendor.status;
+    final phone = vendor.phone;
+    final rating = vendor.rating;
+    final orders = vendor.totalOrders;
+
+
+
+
+    final color = _statusColor(status.toString());
 
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
@@ -228,7 +272,6 @@ class VendorsListScreen extends StatelessWidget {
           colors: [
             AppColors.summerygredient1,
             AppColors.summerygredient2,
-            //Color(0xFFB8C9ED),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -251,7 +294,7 @@ class VendorsListScreen extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (_) => VendorDetailsScreen(
-                  vendorName: vendor['name'] as String,
+                  vendorName: companyName.toString(),
                 ),
               ),
             );
@@ -267,7 +310,7 @@ class VendorsListScreen extends StatelessWidget {
                     gradient: const LinearGradient(
                       colors: [
                         AppColors.gradient3,
-                        AppColors.gradient4
+                        AppColors.gradient4,
                       ],
                     ),
                     borderRadius: BorderRadius.circular(18),
@@ -286,11 +329,26 @@ class VendorsListScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        vendor['name'] as String,
+                        companyName.toString(),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                           fontWeight: FontWeight.w900,
                           fontSize: 16,
-                          color: darkText,
+                          color: VendorsListScreen.darkText,
+                        ),
+                      ),
+
+                      const SizedBox(height: 6),
+
+                      Text(
+                        email.toString(),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Color(0xFF6B7280),
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
 
@@ -305,7 +363,7 @@ class VendorsListScreen extends StatelessWidget {
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            '${vendor['rating']} Rating',
+                            '$rating Rating',
                             style: const TextStyle(
                               fontSize: 12,
                               color: Color(0xFF6B7280),
@@ -320,11 +378,36 @@ class VendorsListScreen extends StatelessWidget {
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            '${vendor['orders']} Orders',
+                            '$orders Orders',
                             style: const TextStyle(
                               fontSize: 12,
                               color: Color(0xFF6B7280),
                               fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(height: 8),
+
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.phone_rounded,
+                            color: Colors.grey[600],
+                            size: 15,
+                          ),
+                          const SizedBox(width: 4),
+                          Expanded(
+                            child: Text(
+                              phone.toString(),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: Color(0xFF6B7280),
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                         ],
@@ -338,13 +421,13 @@ class VendorsListScreen extends StatelessWidget {
                           vertical: 5,
                         ),
                         decoration: BoxDecoration(
-                          color: (vendor['color'] as Color).withOpacity(0.12),
+                          color: color.withOpacity(0.12),
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Text(
-                          vendor['status'] as String,
+                          status.toString().toUpperCase(),
                           style: TextStyle(
-                            color: vendor['color'] as Color,
+                            color: color,
                             fontSize: 12,
                             fontWeight: FontWeight.w800,
                           ),

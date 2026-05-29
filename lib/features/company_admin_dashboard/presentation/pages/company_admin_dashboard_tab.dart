@@ -7,7 +7,8 @@ class CompanyAdminDashboardTab extends StatefulWidget {
   const CompanyAdminDashboardTab({super.key});
 
   @override
-  State<CompanyAdminDashboardTab> createState() => _CompanyAdminDashboardTabState();
+  State<CompanyAdminDashboardTab> createState() =>
+      _CompanyAdminDashboardTabState();
 }
 
 class _CompanyAdminDashboardTabState extends State<CompanyAdminDashboardTab> {
@@ -31,46 +32,47 @@ class _CompanyAdminDashboardTabState extends State<CompanyAdminDashboardTab> {
       });
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF6F8FC),
       body: isLoading
-        ? const Center(child: CircularProgressIndicator())
-        : SafeArea(
-    child: SingleChildScrollView(
-    padding: const EdgeInsets.all(16),
-    child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-    const Text(
-    "Dashboard Overview",
-    style: TextStyle(
-    color: Colors.black,
-    fontSize: 22,
-    fontWeight: FontWeight.w600,
-    ),
-    ),
-    const SizedBox(height: 12),
-    _buildHeroPanel(),
-    const SizedBox(height: 18),
-    _buildKpiList(),
-    const SizedBox(height: 22),
-    _title("Quick Actions"),
-    const SizedBox(height: 10),
-    _buildQuickActions(),
-    const SizedBox(height: 22),
-    _title("Procurement Trends"),
-    const SizedBox(height: 10),
-    _buildGraphCard(),
-    const SizedBox(height: 22),
-    _title("Recent Activities"),
-    const SizedBox(height: 10),
-    _activityPanel(),
-    ],
-    ),
-    ),
-    ),
+          ? const Center(child: CircularProgressIndicator())
+          : SafeArea(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Dashboard Overview",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    _buildHeroPanel(),
+                    const SizedBox(height: 18),
+                    _buildKpiList(),
+                    const SizedBox(height: 22),
+                    _title("Quick Actions"),
+                    const SizedBox(height: 10),
+                    _buildQuickActions(),
+                    const SizedBox(height: 22),
+                    _title("Procurement Trends"),
+                    const SizedBox(height: 10),
+                    _buildGraphCard(),
+                    const SizedBox(height: 22),
+                    _title("Recent Activities"),
+                    const SizedBox(height: 10),
+                    _activityPanel(),
+                  ],
+                ),
+              ),
+            ),
     );
   }
 
@@ -176,14 +178,45 @@ class _CompanyAdminDashboardTabState extends State<CompanyAdminDashboardTab> {
     );
   }
 
-  Widget _buildKpiList() {final items = [
-    ("Total Vendors", "${statsData?.totalVendors ?? 0}", Icons.business, Colors.indigo),
-    ("Pending", "${statsData?.pendingApprovals ?? 0}", Icons.pending_actions, Colors.orange),
-    ("Blacklisted", "${statsData?.blacklisted ?? 0}", Icons.block, Colors.red),
-    ("Contracts", "${statsData?.activeContracts ?? 0}", Icons.assignment, Colors.blue),
-    ("Expiring Soon", "${statsData?.expiringSoon ?? 0}", Icons.warning, Colors.teal),
-    ("Low Risk", "${statsData?.riskStats.low ?? 0}", Icons.verified, Colors.green),
-  ];
+  Widget _buildKpiList() {
+    final items = [
+      (
+        "Total Vendors",
+        "${statsData?.totalVendors ?? 0}",
+        Icons.business,
+        Colors.indigo,
+      ),
+      (
+        "Pending",
+        "${statsData?.pendingApprovals ?? 0}",
+        Icons.pending_actions,
+        Colors.orange,
+      ),
+      (
+        "Blacklisted",
+        "${statsData?.blacklisted ?? 0}",
+        Icons.block,
+        Colors.red,
+      ),
+      (
+        "Contracts",
+        "${statsData?.activeContracts ?? 0}",
+        Icons.assignment,
+        Colors.blue,
+      ),
+      (
+        "Expiring Soon",
+        "${statsData?.expiringSoon ?? 0}",
+        Icons.warning,
+        Colors.teal,
+      ),
+      (
+        "Low Risk",
+        "${statsData?.riskStats.low ?? 0}",
+        Icons.verified,
+        Colors.green,
+      ),
+    ];
 
     return SizedBox(
       height: 130,
@@ -288,9 +321,7 @@ class _CompanyAdminDashboardTabState extends State<CompanyAdminDashboardTab> {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(22),
-              border: Border.all(
-                color: AppColors.gradient3.withOpacity(0.25),
-              ),
+              border: Border.all(color: AppColors.gradient3.withOpacity(0.25)),
               boxShadow: [
                 BoxShadow(
                   color: AppColors.gradient3.withOpacity(0.12),
@@ -309,11 +340,7 @@ class _CompanyAdminDashboardTabState extends State<CompanyAdminDashboardTab> {
                     color: AppColors.gradient3.withOpacity(0.14),
                     borderRadius: BorderRadius.circular(14),
                   ),
-                  child: Icon(
-                    item.$2,
-                    color: AppColors.gradient3,
-                    size: 22,
-                  ),
+                  child: Icon(item.$2, color: AppColors.gradient3, size: 22),
                 ),
 
                 const SizedBox(height: 10),
@@ -372,7 +399,10 @@ class _CompanyAdminDashboardTabState extends State<CompanyAdminDashboardTab> {
               ),
 
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 5,
+                ),
                 decoration: BoxDecoration(
                   color: AppColors.gradient3.withOpacity(0.10),
                   borderRadius: BorderRadius.circular(20),
