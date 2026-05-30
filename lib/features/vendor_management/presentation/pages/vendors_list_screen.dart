@@ -24,7 +24,7 @@ class _VendorsListScreenState extends State<VendorsListScreen> {
   List<VendorData> vendors = [];//model object
 
 
-
+//object
   final VendorListRepository _vendorRepository = VendorListRepository();
 
   @override
@@ -32,7 +32,7 @@ class _VendorsListScreenState extends State<VendorsListScreen> {
     super.initState();
     getVendorList();
   }
-
+//function
   Future<void> getVendorList() async {
     final response = await _vendorRepository.getVendors();
 

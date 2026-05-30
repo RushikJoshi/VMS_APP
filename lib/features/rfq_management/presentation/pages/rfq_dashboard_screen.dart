@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:vms_app/data/repositories/rfq_repository.dart';
 import '../../../../core/constants/app_colors.dart';
 import 'rfq_details_screen.dart';
 
-class RfqDashboardScreen extends StatelessWidget {
+class RfqDashboardScreen extends StatefulWidget {
   final String userRole;
 
   const RfqDashboardScreen({
@@ -16,9 +17,54 @@ class RfqDashboardScreen extends StatelessWidget {
   static const Color bgColor = Color(0xFFF6F8FC);
 
   @override
+  State<RfqDashboardScreen> createState() => _RfqDashboardScreenState();
+
+///header icon================
+  static Widget _headerIcon(IconData icon) {
+    return Container(
+      height: 46,
+      width: 46,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Color(0xFFE5E7EB)),
+      ),
+      child: Icon(icon, color: primaryColor),
+    );
+  }
+}
+
+class _RfqDashboardScreenState extends State<RfqDashboardScreen> {
+
+bool isLoading=true;
+
+//object==========
+   final RfqRepository _rfqRepo =RfqRepository();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getRFQ();
+  }
+
+  //function create ==
+  Future<void> getRFQ()async{
+    try {
+      final response = await _rfqRepo.getRfqList();
+
+      print(response);
+    } catch (e) {
+      print(e);
+    }
+
+  }
+
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: bgColor,
+      backgroundColor: RfqDashboardScreen.bgColor,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
@@ -36,14 +82,6 @@ class RfqDashboardScreen extends StatelessWidget {
               _rfqStatusTracking(),
 
 
-              // const Text(
-              //   "RFQ Status Tracking",
-              //   style: TextStyle(
-              //     fontSize: 20,
-              //     fontWeight: FontWeight.w900,
-              //     color: darkText,
-              //   ),
-              // ),
 
               const SizedBox(height: 12),
 
@@ -55,7 +93,7 @@ class RfqDashboardScreen extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w900,
-                  color: darkText,
+                  color: RfqDashboardScreen.darkText,
                 ),
               ),
 
@@ -68,6 +106,7 @@ class RfqDashboardScreen extends StatelessWidget {
       ),
     );
   }
+
 ///top header==========================
   Widget _topHeader() {
     return Row(
@@ -81,14 +120,14 @@ class RfqDashboardScreen extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.w900,
-                  color: darkText,
+                  color: RfqDashboardScreen.darkText,
                 ),
               ),
               SizedBox(height: 4),
               Text(
                 "Create, track and manage vendor quotations",
                 style: TextStyle(
-                  color: lightText,
+                  color: RfqDashboardScreen.lightText,
                   fontSize: 13,
                   fontWeight: FontWeight.w600,
                 ),
@@ -96,25 +135,13 @@ class RfqDashboardScreen extends StatelessWidget {
             ],
           ),
         ),
-        _headerIcon(Icons.search_rounded),
+        RfqDashboardScreen._headerIcon(Icons.search_rounded),
         const SizedBox(width: 10),
-        _headerIcon(Icons.notifications_none_rounded),
+        RfqDashboardScreen._headerIcon(Icons.notifications_none_rounded),
       ],
     );
   }
-///header icon================
-  static Widget _headerIcon(IconData icon) {
-    return Container(
-      height: 46,
-      width: 46,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Color(0xFFE5E7EB)),
-      ),
-      child: Icon(icon, color: primaryColor),
-    );
-  }
+
 ///summarycary================
   Widget _rfqSummaryCard() {
     return Container(
@@ -263,6 +290,7 @@ class RfqDashboardScreen extends StatelessWidget {
       ),
     );
   }
+
 ///quickaction=====================
   Widget _rfqStatusTracking() {
     final rfqList = [
@@ -301,7 +329,7 @@ class RfqDashboardScreen extends StatelessWidget {
         const Text(
           "RFQ Status Tracking",
           style: TextStyle(
-            color: darkText,
+            color: RfqDashboardScreen.darkText,
             fontSize: 18,
             fontWeight: FontWeight.w900,
           ),
@@ -365,7 +393,7 @@ class RfqDashboardScreen extends StatelessWidget {
                             Text(
                               rfq["title"] as String,
                               style: const TextStyle(
-                                color: darkText,
+                                color: RfqDashboardScreen.darkText,
                                 fontSize: 15,
                                 fontWeight: FontWeight.w900,
                               ),
@@ -450,7 +478,7 @@ class RfqDashboardScreen extends StatelessWidget {
       ],
     );
   }
-  }
+}
              ///Recent RFQ================//
   Widget _buildRfqList(BuildContext context) {
     final rfqs = [
